@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slump.IO — Concrete Mix Design for Engineers</title>
+  <meta name="description" content="Professional concrete mix design app for field engineers and researchers. ACI 211.1, IS 10262, BS 8500, and custom mix modes. Available soon on iOS.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:    #17609F;
+      --blue-dk: #0f4a7a;
+      --purple:  #6B2D8B;
+      --light:   #f5f7fa;
+      --text:    #1a1a2e;
+      --muted:   #6b7280;
+      --border:  #e5e7eb;
+      --radius:  14px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); background: #fff; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-brand span { font-size: 18px; font-weight: 700; color: var(--text); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: #fff; border-radius: 20px;
+      padding: 8px 20px; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--blue-dk); }
+
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #f0f6ff 0%, #faf5ff 50%, #f0f6ff 100%);
+      padding: 80px 40px 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(23,96,159,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 80px; width: 100%; }
+    .hero-text { flex: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(23,96,159,0.1); color: var(--blue);
+      border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero-badge::before { content: '●'; font-size: 8px; }
+    h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 800; line-height: 1.1;
+      color: var(--text); margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    h1 span { color: var(--blue); }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--muted); line-height: 1.6;
+      margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #fff;
+      border-radius: 14px; padding: 14px 28px;
+      font-size: 16px; font-weight: 700; text-decoration: none;
+      transition: all .2s; box-shadow: 0 4px 16px rgba(23,96,159,0.3);
+    }
+    .btn-primary:hover { background: var(--blue-dk); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid var(--border); color: var(--text);
+      border-radius: 14px; padding: 14px 28px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      transition: all .2s;
+    }
+    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+    .hero-note { margin-top: 20px; font-size: 13px; color: var(--muted); }
+    .hero-screenshots {
+      flex: 1; display: flex; gap: 16px; align-items: flex-end;
+      justify-content: center; position: relative;
+    }
+    .phone-frame {
+      border-radius: 28px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+    .phone-frame.main { width: 220px; }
+    .phone-frame.side { width: 185px; opacity: 0.82; margin-bottom: 28px; }
+    .phone-frame img { width: 100%; display: block; }
+
+    /* STANDARDS STRIP */
+    .standards {
+      background: var(--text); color: #fff;
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .standards span { font-size: 13px; font-weight: 500; opacity: 0.6; letter-spacing: 0.5px; }
+    .standards .std { font-size: 15px; font-weight: 700; opacity: 1; }
+
+    /* SECTIONS */
+    section { padding: 96px 40px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 13px; font-weight: 700; color: var(--blue); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .section-sub { font-size: 17px; color: var(--muted); line-height: 1.6; max-width: 560px; margin-bottom: 56px; }
+
+    /* FEATURES */
+    #features { background: var(--light); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .feature-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 28px; border: 1px solid var(--border);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(23,96,159,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 16px;
+    }
+    .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* SCATTER GALLERY */
+    #screenshots { background: #fff; }
+    .scatter-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 20px 0 40px;
+    }
+    .shot {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.06);
+      opacity: 0;
+      transform: translateY(80px) scale(0.88);
+      transition: opacity 0.65s cubic-bezier(.22,.84,.35,1),
+                  transform 0.65s cubic-bezier(.22,.84,.35,1);
+      flex-shrink: 0;
+    }
+    .shot.visible {
+      opacity: 1;
+      transform: translateY(var(--float-y, 0px)) rotate(var(--rot, 0deg)) scale(var(--sc, 1));
+    }
+    .shot img { width: 100%; display: block; }
+    .shot-label { text-align: center; margin-top: 10px; font-size: 12px; color: var(--muted); font-weight: 500; }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%);
+      color: #fff; text-align: center; padding: 96px 40px;
+    }
+    .cta-section h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { font-size: 18px; opacity: 0.85; margin-bottom: 40px; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--blue);
+      border-radius: 14px; padding: 16px 32px;
+      font-size: 17px; font-weight: 700; text-decoration: none;
+      transition: all .2s; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
+
+    /* FOOTER */
+    footer { background: var(--text); color: rgba(255,255,255,0.7); padding: 48px 40px 32px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .footer-brand img { width: 36px; height: 36px; border-radius: 10px; }
+    .footer-brand span { font-size: 18px; font-weight: 700; color: #fff; }
+    .footer-desc { font-size: 14px; max-width: 280px; line-height: 1.6; }
+    .footer-links h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 8px; }
+    .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; }
+    .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer-bottom a:hover { color: #fff; }
+
+    @media (max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 60px 20px; min-height: auto; }
+      .hero-content { flex-direction: column; gap: 40px; }
+      .hero-screenshots { width: 100%; }
+      .phone-frame.side { display: none; }
+      section { padding: 64px 20px; }
+      .shot { width: 130px !important; }
+      .standards { gap: 20px; padding: 20px; }
+      footer { padding: 40px 20px 24px; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="images/logo.png" alt="slump.IO">
+    <span>slump.IO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="privacy-policy.html">Privacy</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Download Soon on App Store</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">Available Soon on iOS</div>
+      <h1>Concrete Mix Design<br><span>at your fingertips.</span></h1>
+      <p class="hero-sub">Built for field engineers and researchers. Design, calculate, and export professional concrete mix designs using ACI, IS, BS standards — or your own custom method.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download on App Store (Coming soon)
+        </a>
+        <a href="#screenshots" class="btn-secondary">See Screenshots →</a>
+      </div>
+      <p class="hero-note">Free to download · iOS 18+ · iPhone & iPad</p>
+    </div>
+    <div class="hero-screenshots">
+      <div class="phone-frame side">
+        <img src="images/screen2.png" alt="Mix Results">
+      </div>
+      <div class="phone-frame main">
+        <img src="images/screen1.png" alt="slump.IO Home">
+      </div>
+      <div class="phone-frame side">
+        <img src="images/screen4.png" alt="Archive">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STANDARDS STRIP -->
+<div class="standards">
+  <span>SUPPORTED STANDARDS</span>
+  <span class="std">ACI 211.1</span>
+  <span>·</span>
+  <span class="std">IS 10262:2019</span>
+  <span>·</span>
+  <span class="std">BS 8500</span>
+  <span>·</span>
+  <span class="std">Custom Mix</span>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <p class="section-label">Features</p>
+    <h2 class="section-title">Everything you need on site</h2>
+    <p class="section-sub">Designed for engineers who need accurate, fast results — in the field or in the lab.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🧮</div>
+        <h3>Three Design Standards</h3>
+        <p>Full implementation of ACI 211.1, IS 10262:2019, and BS 8500. Switch standards instantly. All calculations validated against the original standards.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚗️</div>
+        <h3>Custom Mix Mode</h3>
+        <p>Specify total binder content and W/B ratio directly. Perfect for UHPC, research trials, and proprietary mix designs. Full volume check included.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <h3>Advanced SCM Support</h3>
+        <p>Dual supplementary cementitious materials — Fly Ash, GGBS, Silica Fume. ACI k-value efficiency factors applied automatically for W/CM calculation.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌡️</div>
+        <h3>Field Corrections</h3>
+        <p>Moisture and absorption corrections for coarse and fine aggregates. Temperature warnings for hot and cold weather concreting per ACI 305R and 306R.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3>Professional PDF Reports</h3>
+        <p>Generate and share complete mix design reports with your name, company, and project details. Includes pie chart, batch quantities, and field-adjusted values.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Mix Archive</h3>
+        <p>Save unlimited designs. Search by name or notes. Separate sections for standard and custom designs. Edit and recalculate any saved design.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>Metric & Imperial</h3>
+        <p>Switch between Metric (MPa, mm, kg/m³) and Imperial (psi, in, °F) instantly. All validation messages and outputs update automatically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>Field Test Guides</h3>
+        <p>Built-in reference guides for slump test (ASTM C143), air content (ASTM C231), fresh density (ASTM C138), and temperature (ASTM C1064) with YouTube tutorials.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Fully Offline & Private</h3>
+        <p>All calculations and data stored locally on your device. No account required. No data ever leaves your phone. Works anywhere, even without internet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section id="screenshots">
+  <div class="section-inner">
+    <p class="section-label">Screenshots</p>
+    <h2 class="section-title">See it in action</h2>
+    <p class="section-sub">Clean, intuitive interface that works beautifully in both light and dark mode.</p>
+
+    <div class="scatter-gallery">
+      <div class="shot" data-delay="0"   style="--rot:-4deg;   --sc:0.88; --float-y:-8px;  width:148px;">
+        <img src="images/screen1.png" alt="Home Screen">
+        <p class="shot-label">Home</p>
+      </div>
+      <div class="shot" data-delay="80"  style="--rot:2.5deg;  --sc:1.04; --float-y:-18px; width:175px;">
+        <img src="images/screen2.png" alt="Mix Composition">
+        <p class="shot-label">Mix Composition</p>
+      </div>
+      <div class="shot" data-delay="160" style="--rot:-2deg;   --sc:0.95; --float-y:0px;   width:162px;">
+        <img src="images/screen3.png" alt="Batch Quantities">
+        <p class="shot-label">Batch Quantities</p>
+      </div>
+      <div class="shot" data-delay="240" style="--rot:3.5deg;  --sc:1.08; --float-y:-24px; width:182px;">
+        <img src="images/screen4.png" alt="Archive">
+        <p class="shot-label">Archive</p>
+      </div>
+      <div class="shot" data-delay="320" style="--rot:-1.5deg; --sc:0.92; --float-y:-6px;  width:155px;">
+        <img src="images/screen5.png" alt="Design Detail">
+        <p class="shot-label">Design Detail</p>
+      </div>
+      <div class="shot" data-delay="400" style="--rot:2deg;    --sc:1.0;  --float-y:-14px; width:168px;">
+        <img src="images/screen6.png" alt="Settings">
+        <p class="shot-label">Settings</p>
+      </div>
+      <div class="shot" data-delay="480" style="--rot:-3deg;   --sc:0.90; --float-y:-4px;  width:152px;">
+        <img src="images/screen7.png" alt="Field Test Guide">
+        <p class="shot-label">Field Test Guide</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to design your next mix?</h2>
+  <p>Download slump.IO free on the App Store (Coming soon). No account, no subscription, no limits.</p>
+  <a href="#" class="btn-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download on App Store (Coming soon)
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="slump.IO">
+          <span>slump.IO</span>
+        </div>
+        <p class="footer-desc">Professional concrete mix design for field engineers and researchers. Built with precision and care.</p>
+      </div>
+      <div class="footer-links">
+        <h4>App</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#screenshots">Screenshots</a></li>
+          <li><a href="#">Download (Coming soon)</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:dr.mohammedfasil@gmail.com">dr.mohammedfasil@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dr. Mohammed Fasil. All rights reserved.</span>
+      <div style="display:flex;gap:20px;">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const shots = document.querySelectorAll('.shot');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        setTimeout(() => el.classList.add('visible'), parseInt(el.dataset.delay || 0));
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+  shots.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
