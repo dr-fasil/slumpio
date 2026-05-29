@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — slump.IO</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --blue:#17609F; --blue-dk:#0f4a7a; --light:#f5f7fa; --text:#1a1a2e; --muted:#6b7280; --border:#e5e7eb; --radius:14px; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); background: #fff; }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 14px 40px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-brand span { font-size: 18px; font-weight: 700; color: var(--text); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: #fff; border-radius: 20px; padding: 8px 20px; font-size: 14px; font-weight: 600; text-decoration: none; }
+
+    .page-hero { background: linear-gradient(135deg, #f0f6ff, #faf5ff); padding: 80px 40px 64px; text-align: center; }
+    .page-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 16px; }
+    .page-hero p { font-size: 18px; color: var(--muted); max-width: 500px; margin: 0 auto; line-height: 1.6; }
+
+    .content { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
+
+    .contact-box { background: var(--blue); color: #fff; border-radius: var(--radius); padding: 36px; margin-bottom: 48px; text-align: center; }
+    .contact-box h2 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+    .contact-box p { opacity: 0.85; margin-bottom: 20px; font-size: 15px; }
+    .contact-box a { display: inline-block; background: #fff; color: var(--blue); border-radius: 10px; padding: 12px 28px; font-weight: 700; text-decoration: none; font-size: 15px; }
+
+    h2.faq-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+    details { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+    details[open] { border-color: var(--blue); }
+    summary { padding: 18px 20px; font-weight: 600; font-size: 15px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    summary::after { content: '+'; font-size: 20px; color: var(--blue); font-weight: 300; }
+    details[open] summary::after { content: '−'; }
+    details p { padding: 0 20px 18px; font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+    footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; font-size: 13px; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px; }
+    footer a:hover { color: #fff; }
+    @media (max-width: 700px) { nav { padding: 14px 20px; } .nav-links { display: none; } .page-hero { padding: 60px 20px 48px; } .content { padding: 48px 20px; } footer { padding: 24px 20px; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-brand"><img src="images/logo.png" alt="slump.IO"><span>slump.IO</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#screenshots">Screenshots</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="privacy-policy.html">Privacy</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Download</a>
+</nav>
+
+<div class="page-hero">
+  <h1>Support</h1>
+  <p>We're here to help. Reach out anytime.</p>
+</div>
+
+<div class="content">
+  <div class="contact-box">
+    <h2>Get in touch</h2>
+    <p>Have a question, found a bug, or want to suggest a feature? We'd love to hear from you.</p>
+    <a href="mailto:dr.mohammedfasil@gmail.com">dr.mohammedfasil@gmail.com</a>
+    <p style="margin-top:14px;font-size:13px;opacity:0.7;">Typically responds within 1–2 business days.</p>
+  </div>
+
+  <h2 class="faq-title">Frequently Asked Questions</h2>
+
+  <details>
+    <summary>Which design standards does slump.IO support?</summary>
+    <p>slump.IO supports ACI 211.1 (USA), IS 10262:2019 (India), BS 8500 (UK), and a Custom mix mode for direct binder-based design. All calculations follow the original standard documents.</p>
+  </details>
+  <details>
+    <summary>What units does the app support?</summary>
+    <p>Both Metric (MPa, mm, kg/m³) and Imperial (psi, inches, °F). Switch between them using the toggle in the Compose tab or Settings tab. All validation messages and outputs update automatically.</p>
+  </details>
+  <details>
+    <summary>How do I save a mix design?</summary>
+    <p>After calculating, tap <strong>Save</strong> on the results screen. Give it a name or leave it blank for auto-naming. All saved designs appear in the Archive tab, organized into Standard and Custom sections.</p>
+  </details>
+  <details>
+    <summary>Can I export my results?</summary>
+    <p>Yes. Open any saved design from the Archive, tap <strong>Preview PDF</strong> to view the full report, then <strong>Export PDF</strong> to share via email, AirDrop, WhatsApp, or any other app.</p>
+  </details>
+  <details>
+    <summary>Does the app work offline?</summary>
+    <p>Yes, completely. All calculations run on-device. Your data is stored locally. The app never requires an internet connection.</p>
+  </details>
+  <details>
+    <summary>Can I edit a saved design?</summary>
+    <p>Yes. Open any design from the Archive and tap <strong>Edit & Recalculate</strong> to modify inputs and recalculate with the updated values.</p>
+  </details>
+  <details>
+    <summary>What is Custom mix mode?</summary>
+    <p>Custom mode lets you specify total binder content and W/B ratio directly, without going through a standard design method. This is useful for UHPC, proprietary mix designs, and research trials. It includes a full volume check to verify your inputs sum to 1.0 m³.</p>
+  </details>
+  <details>
+    <summary>What SCMs are supported?</summary>
+    <p>Fly Ash, GGBS (Ground Granulated Blast-Furnace Slag), and Silica Fume. You can use up to two SCMs simultaneously (ternary blend). ACI k-values (efficiency factors) are applied automatically when using ACI 211.1.</p>
+  </details>
+  <details>
+    <summary>What are the Field Test Guides?</summary>
+    <p>Built-in reference guides for on-site testing: Slump Test (ASTM C143 / BS 1881-102), Air Content by Pressure Method (ASTM C231), Fresh Density (ASTM C138), and Concrete Temperature (ASTM C1064). Each links to a YouTube tutorial.</p>
+  </details>
+  <details>
+    <summary>Is my data backed up?</summary>
+    <p>Currently, data is stored locally on your device. We recommend using iOS device backups (iCloud or iTunes) to protect your data. iCloud sync between devices is planned for a future release.</p>
+  </details>
+</div>
+
+<footer>
+  <p>© 2026 Dr. Mohammed Fasil &nbsp;·&nbsp;
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </p>
+</footer>
+</body>
+</html>
