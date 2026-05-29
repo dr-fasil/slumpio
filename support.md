@@ -37,5 +37,5 @@ Custom mode lets you specify total binder content and W/B ratio directly, withou
 
 - **Version:** 1.0.0  
 - **Developer:** Dr. Mohammed Fasil  
-- **Platform:** iOS 16+  
+- **Platform:** iOS 17.6+  
 - **Bundle ID:** com.mfasil.slumpio
