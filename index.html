@@ -145,32 +145,22 @@
     .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
     .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
-    /* SCATTER GALLERY */
+    /* SCREENSHOTS GALLERY */
     #screenshots { background: #fff; }
-    .scatter-gallery {
-      display: flex;
-      flex-wrap: wrap;
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 20px 0 40px;
     }
-    .shot {
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.06);
-      opacity: 0;
-      transform: translateY(80px) scale(0.88);
-      transition: opacity 0.65s cubic-bezier(.22,.84,.35,1),
-                  transform 0.65s cubic-bezier(.22,.84,.35,1);
-      flex-shrink: 0;
+    .gallery-item {
+      border-radius: 28px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform .3s, box-shadow .3s;
     }
-    .shot.visible {
-      opacity: 1;
-      transform: translateY(var(--float-y, 0px)) rotate(var(--rot, 0deg)) scale(var(--sc, 1));
-    }
-    .shot img { width: 100%; display: block; }
-    .shot-label { text-align: center; margin-top: 10px; font-size: 12px; color: var(--muted); font-weight: 500; }
+    .gallery-item:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 16px 48px rgba(0,0,0,0.18); }
+    .gallery-item img { width: 100%; display: block; }
+    .gallery-caption { text-align: center; margin-top: 12px; font-size: 12px; color: var(--muted); font-weight: 500; }
 
     /* CTA */
     .cta-section {
@@ -213,7 +203,7 @@
       .hero-screenshots { width: 100%; }
       .phone-frame.side { display: none; }
       section { padding: 64px 20px; }
-      .shot { width: 130px !important; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
       .standards { gap: 20px; padding: 20px; }
       footer { padding: 40px 20px 24px; }
       .footer-top { flex-direction: column; }
@@ -343,35 +333,34 @@
     <p class="section-label">Screenshots</p>
     <h2 class="section-title">See it in action</h2>
     <p class="section-sub">Clean, intuitive interface that works beautifully in both light and dark mode.</p>
-
-    <div class="scatter-gallery">
-      <div class="shot" data-delay="0"   style="--rot:-4deg;   --sc:0.88; --float-y:-8px;  width:148px;">
-        <img src="images/screen1.png" alt="Home Screen">
-        <p class="shot-label">Home</p>
+    <div class="gallery">
+      <div>
+        <div class="gallery-item"><img src="images/screen1.png" alt="Home Screen"></div>
+        <p class="gallery-caption">Home</p>
       </div>
-      <div class="shot" data-delay="80"  style="--rot:2.5deg;  --sc:1.04; --float-y:-18px; width:175px;">
-        <img src="images/screen2.png" alt="Mix Composition">
-        <p class="shot-label">Mix Composition</p>
+      <div>
+        <div class="gallery-item"><img src="images/screen2.png" alt="Mix Composition"></div>
+        <p class="gallery-caption">Mix Composition</p>
       </div>
-      <div class="shot" data-delay="160" style="--rot:-2deg;   --sc:0.95; --float-y:0px;   width:162px;">
-        <img src="images/screen3.png" alt="Batch Quantities">
-        <p class="shot-label">Batch Quantities</p>
+      <div>
+        <div class="gallery-item"><img src="images/screen3.png" alt="Batch Quantities"></div>
+        <p class="gallery-caption">Batch Quantities</p>
       </div>
-      <div class="shot" data-delay="240" style="--rot:3.5deg;  --sc:1.08; --float-y:-24px; width:182px;">
-        <img src="images/screen4.png" alt="Archive">
-        <p class="shot-label">Archive</p>
+      <div>
+        <div class="gallery-item"><img src="images/screen4.png" alt="Archive"></div>
+        <p class="gallery-caption">Archive</p>
       </div>
-      <div class="shot" data-delay="320" style="--rot:-1.5deg; --sc:0.92; --float-y:-6px;  width:155px;">
-        <img src="images/screen5.png" alt="Design Detail">
-        <p class="shot-label">Design Detail</p>
+      <div>
+        <div class="gallery-item"><img src="images/screen5.png" alt="Design Detail"></div>
+        <p class="gallery-caption">Design Detail</p>
       </div>
-      <div class="shot" data-delay="400" style="--rot:2deg;    --sc:1.0;  --float-y:-14px; width:168px;">
-        <img src="images/screen6.png" alt="Settings">
-        <p class="shot-label">Settings</p>
+      <div>
+        <div class="gallery-item"><img src="images/screen6.png" alt="Settings"></div>
+        <p class="gallery-caption">Settings</p>
       </div>
-      <div class="shot" data-delay="480" style="--rot:-3deg;   --sc:0.90; --float-y:-4px;  width:152px;">
-        <img src="images/screen7.png" alt="Field Test Guide">
-        <p class="shot-label">Field Test Guide</p>
+      <div>
+        <div class="gallery-item"><img src="images/screen7.png" alt="Field Test Guide"></div>
+        <p class="gallery-caption">Field Test Guide</p>
       </div>
     </div>
   </div>
@@ -430,20 +419,6 @@
     </div>
   </div>
 </footer>
-
-<script>
-  const shots = document.querySelectorAll('.shot');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        setTimeout(() => el.classList.add('visible'), parseInt(el.dataset.delay || 0));
-        io.unobserve(el);
-      }
-    });
-  }, { threshold: 0.15 });
-  shots.forEach(s => io.observe(s));
-</script>
 
 </body>
 </html>
