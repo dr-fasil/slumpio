@@ -4,44 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — slump.IO</title>
+  <meta name="description" content="Privacy Policy for slump.IO concrete mix design app.">
   <link rel="icon" type="image/png" href="images/logo.png">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --blue:#17609F; --light:#f5f7fa; --text:#1a1a2e; --muted:#6b7280; --border:#e5e7eb; --radius:14px; }
+    :root {
+      --blue: #17609F; --blue-dk: #0f4a7a;
+      --light: #f5f7fa; --text: #1a1a2e;
+      --muted: #6b7280; --border: #e5e7eb; --radius: 14px;
+    }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); background: #fff; }
-    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 14px 40px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px; background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    }
     .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
     .nav-brand span { font-size: 18px; font-weight: 700; color: var(--text); }
     .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--blue); }
     .nav-cta { background: var(--blue); color: #fff; border-radius: 20px; padding: 8px 20px; font-size: 14px; font-weight: 600; text-decoration: none; }
-
-    .page-hero { background: linear-gradient(135deg, #f0f6ff, #faf5ff); padding: 80px 40px 64px; text-align: center; }
-    .page-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 16px; }
+    .page-hero { background: linear-gradient(135deg, #f0f6ff 0%, #faf5ff 100%); padding: 64px 40px 48px; text-align: center; }
+    .page-hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
     .page-hero p { font-size: 16px; color: var(--muted); }
-
-    .content { max-width: 760px; margin: 0 auto; padding: 80px 40px; }
-    .highlight { background: #e8f4e8; border-left: 4px solid #2d9e2d; border-radius: 8px; padding: 20px 24px; margin-bottom: 40px; }
-    .highlight p { font-size: 16px; color: #1a4a1a; font-weight: 500; line-height: 1.6; }
-    h2 { font-size: 20px; font-weight: 700; color: var(--blue); margin: 40px 0 12px; }
-    h2:first-of-type { margin-top: 0; }
-    p { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
-    ul { margin-left: 20px; margin-bottom: 12px; }
-    li { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
-    a { color: var(--blue); }
-    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
-
-    footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; font-size: 13px; }
-    footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px; }
+    .content { max-width: 760px; margin: 0 auto; padding: 56px 40px 80px; }
+    .summary-box {
+      background: #f0f9f0; border: 1.5px solid #86c986; border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 48px;
+    }
+    .summary-box h2 { font-size: 13px; font-weight: 700; color: #2d6e2d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .summary-box ul { list-style: none; }
+    .summary-box li { font-size: 14px; color: #1e4d1e; padding: 4px 0 4px 24px; position: relative; line-height: 1.6; }
+    .summary-box li::before { content: "✓"; position: absolute; left: 0; color: #2d6e2d; font-weight: 700; }
+    h2.section { font-size: 19px; font-weight: 700; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer { background: #1a1a2e; color: rgba(255,255,255,0.7); padding: 32px 40px; text-align: center; font-size: 13px; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 10px; }
     footer a:hover { color: #fff; }
-    @media (max-width: 700px) { nav { padding: 14px 20px; } .nav-links { display: none; } .page-hero { padding: 60px 20px 48px; } .content { padding: 48px 20px; } footer { padding: 24px 20px; } }
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; } .nav-links { display: none; }
+      .page-hero { padding: 48px 20px 36px; }
+      .content { padding: 40px 20px 60px; }
+    }
   </style>
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nav-brand"><img src="images/logo.png" alt="slump.IO"><span>slump.IO</span></a>
+  <a href="index.html" class="nav-brand">
+    <img src="images/logo.png" alt="slump.IO"><span>slump.IO</span>
+  </a>
   <ul class="nav-links">
     <li><a href="index.html#features">Features</a></li>
     <li><a href="index.html#screenshots">Screenshots</a></li>
@@ -50,7 +67,7 @@
     <li><a href="privacy-policy.html">Privacy</a></li>
     <li><a href="legal.html">Legal</a></li>
   </ul>
-  <a href="#" class="nav-cta">Download</a>
+  <a href="#" class="nav-cta">Download Soon</a>
 </nav>
 
 <div class="page-hero">
@@ -59,61 +76,45 @@
 </div>
 
 <div class="content">
-  <div class="highlight">
-    <p>✅ <strong>The short version:</strong> slump.IO does not collect, store, or share any personal data. Everything stays on your device.</p>
+  <div class="summary-box">
+    <h2>The Short Version</h2>
+    <ul>
+      <li>No data is collected or transmitted — everything stays on your device.</li>
+      <li>No account or login is required.</li>
+      <li>No analytics, no tracking, no advertising.</li>
+      <li>Feedback you submit voluntarily goes only to the developer.</li>
+      <li>The app works fully offline.</li>
+    </ul>
   </div>
 
-  <h2>Overview</h2>
-  <p>slump.IO is a concrete mix design tool for engineers and construction professionals. We are committed to protecting your privacy. This policy explains what data the app collects and how it is used.</p>
+  <h2 class="section">1. Information We Collect</h2>
+  <p>slump.IO does not collect, transmit, or store any personal data on external servers. All mix designs, profile information, and settings are stored locally on your device using iOS data storage. This data never leaves your device unless you explicitly share a PDF report.</p>
 
-  <h2>Data We Collect</h2>
-  <p><strong>slump.IO does not collect any personal data.</strong></p>
-  <p>All mix designs, calculations, and settings are stored locally on your device using Apple's standard storage (UserDefaults and local file storage). This data never leaves your device and is not transmitted to any server.</p>
+  <h2 class="section">2. Feedback Submissions</h2>
+  <p>If you choose to submit feedback through the in-app feedback form, your message and the name you have entered in your profile are sent to the developer via Web3Forms. No other data is transmitted. This submission is entirely voluntary.</p>
 
-  <h2>Data We Do Not Collect</h2>
-  <ul>
-    <li>We do not collect your name, email, or contact information</li>
-    <li>We do not collect location data</li>
-    <li>We do not collect device identifiers or analytics</li>
-    <li>We do not use third-party tracking or advertising SDKs</li>
-    <li>We do not share any data with third parties</li>
-    <li>We do not use cookies or web tracking</li>
-  </ul>
+  <h2 class="section">3. Analytics & Tracking</h2>
+  <p>slump.IO contains no analytics, tracking SDKs, crash reporters, or advertising networks. No usage data of any kind is collected.</p>
 
-  <h2>Feedback</h2>
-  <p>If you choose to send feedback using the in-app feedback form, your message is submitted to our feedback service (web3forms.com). This submission includes only the message text and the name you optionally enter in your profile. No other data is transmitted. Submitting feedback is entirely voluntary.</p>
+  <h2 class="section">4. Third-Party Services</h2>
+  <p>The only third-party service used is Web3Forms, which processes voluntary feedback submissions. No other third-party services, SDKs, or APIs are integrated into the app.</p>
 
-  <h2>Profile Information</h2>
-  <p>If you enter your name and company in the Profile section, this information is stored locally on your device only and is used solely to populate PDF reports you generate. It is never transmitted or shared with anyone.</p>
+  <h2 class="section">5. Children's Privacy</h2>
+  <p>slump.IO does not knowingly collect any information from children under 13. The app is intended for professional and academic use by adults.</p>
 
-  <h2>PDF Reports</h2>
-  <p>PDF reports are generated entirely on your device. When you choose to share a report, it is shared directly from your device using iOS standard sharing features. We do not receive or store any copy of your reports.</p>
+  <h2 class="section">6. Changes to This Policy</h2>
+  <p>This privacy policy may be updated from time to time. The current version is always available at this URL. Continued use of the app constitutes acceptance of the current policy.</p>
 
-  <h2>Children's Privacy</h2>
-  <p>slump.IO is a professional engineering tool not directed at children under 13. We do not knowingly collect data from children. If you believe a child has submitted personal information, please contact us and we will address it promptly.</p>
-
-  <h2>Third-Party Services</h2>
-  <p>The only third-party service used is web3forms.com, which powers the optional in-app feedback form. This service only receives the message text you type and the optional name from your profile. No other data is shared.</p>
-
-  <h2>Data Security</h2>
-  <p>Since all data is stored locally on your device, it is protected by your device's own security features (passcode, Face ID, Touch ID). We recommend keeping your iOS device updated and using device backup (iCloud or iTunes) to protect your data.</p>
-
-  <h2>Changes to This Policy</h2>
-  <p>We may update this privacy policy from time to time to reflect changes in the app or applicable law. Any changes will be posted on this page with an updated date. We encourage you to review this policy periodically.</p>
-
-  <hr>
-
-  <h2>Contact</h2>
-  <p>If you have questions or concerns about this privacy policy, please contact us at:<br>
-  <a href="mailto:dr.mohammedfasil@gmail.com">dr.mohammedfasil@gmail.com</a></p>
+  <h2 class="section">7. Contact</h2>
+  <p>Questions about this policy: <a href="mailto:dr.mohammedfasil@gmail.com">dr.mohammedfasil@gmail.com</a></p>
 </div>
 
 <footer>
-  <p>© 2026 Dr. Mohammed Fasil &nbsp;·&nbsp;
-    <a href="index.html">Home</a>
-    <a href="support.html">Support</a>
-    <a href="about.html">About</a>
-  </p>
+  <span>© 2026 Dr. Mohammed Fasil. All rights reserved.</span><br><br>
+  <a href="index.html">Home</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="support.html">Support</a>
+  <a href="legal.html">Legal</a>
 </footer>
 </body>
 </html>
